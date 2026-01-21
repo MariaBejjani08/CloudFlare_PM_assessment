@@ -110,17 +110,20 @@ export default {
 		}
 
 		.logo {
-			font-size: 1.25rem;
-			font-weight: 600;
+			font-size: 1.5rem;
+			font-weight: 700;
 			color: var(--color-text-primary);
 		}
 
-		.ai-badge {
-			font-size: 0.75rem;
-			color: var(--color-text-muted);
-			background: var(--color-border-light);
-			padding: var(--space-xs) var(--space-sm);
-			border-radius: var(--radius-sm);
+		.logo::before {
+			content: '';
+			display: inline-block;
+			width: 8px;
+			height: 8px;
+			background: var(--color-accent);
+			border-radius: 50%;
+			margin-right: 10px;
+			vertical-align: middle;
 		}
 
 		.header-right {
@@ -175,13 +178,14 @@ export default {
 
 		/* Overview Section */
 		.overview {
-			margin-bottom: var(--space-xl);
+			margin-bottom: var(--space-2xl);
 		}
 
 		.overview h1 {
-			font-size: 1.75rem;
-			font-weight: 600;
-			margin-bottom: var(--space-sm);
+			font-size: 2.25rem;
+			font-weight: 800;
+			margin-bottom: var(--space-md);
+			color: var(--color-text-primary);
 		}
 
 		.overview-meta {
@@ -207,22 +211,25 @@ export default {
 			background: var(--color-surface);
 			border: 1px solid var(--color-border);
 			border-radius: var(--radius-lg);
-			box-shadow: var(--shadow-sm);
+			box-shadow: var(--shadow-md);
 			overflow: hidden;
 		}
 
 		.card-header {
-			padding: var(--space-md) var(--space-lg);
-			border-bottom: 1px solid var(--color-border-light);
+			padding: var(--space-lg) var(--space-lg);
+			border-bottom: 1px solid var(--color-border);
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			background: var(--color-bg);
 		}
 
 		.card-title {
-			font-size: 1rem;
-			font-weight: 600;
+			font-size: 1.125rem;
+			font-weight: 700;
 			color: var(--color-text-primary);
+			text-transform: uppercase;
+			letter-spacing: 0.025em;
 		}
 
 		.card-body {
@@ -234,12 +241,18 @@ export default {
 			margin-bottom: var(--space-xl);
 		}
 
+		.todo-list {
+			list-style: none;
+			counter-reset: todo-counter;
+		}
+
 		.todo-item {
 			display: flex;
 			align-items: flex-start;
 			gap: var(--space-md);
 			padding: var(--space-md) 0;
 			border-bottom: 1px solid var(--color-border-light);
+			counter-increment: todo-counter;
 		}
 
 		.todo-item:last-child {
@@ -251,34 +264,25 @@ export default {
 			padding-top: 0;
 		}
 
-		.priority-badge {
+		.todo-number {
 			flex-shrink: 0;
-			font-size: 0.75rem;
-			font-weight: 500;
-			padding: var(--space-xs) var(--space-sm);
-			border-radius: var(--radius-sm);
-			white-space: nowrap;
-		}
-
-		.priority-high {
-			background: var(--color-high-bg);
-			color: var(--color-high);
-		}
-
-		.priority-medium {
-			background: var(--color-medium-bg);
-			color: var(--color-medium);
-		}
-
-		.priority-action {
-			background: var(--color-action-bg);
-			color: var(--color-action);
+			width: 28px;
+			height: 28px;
+			background: var(--color-accent);
+			color: white;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 0.875rem;
+			font-weight: 700;
 		}
 
 		.todo-text {
 			color: var(--color-text-primary);
-			font-size: 0.9375rem;
-			line-height: 1.5;
+			font-size: 1rem;
+			line-height: 1.6;
+			padding-top: 2px;
 		}
 
 		/* Insights Section - Two Column */
@@ -307,22 +311,13 @@ export default {
 		}
 
 		.insight-list li::before {
-			content: '';
+			content: '\\2022';
 			position: absolute;
 			left: 0;
 			top: 50%;
 			transform: translateY(-50%);
-			width: 6px;
-			height: 6px;
-			border-radius: 50%;
-		}
-
-		.insight-list.positive li::before {
-			background: var(--color-positive);
-		}
-
-		.insight-list.attention li::before {
-			background: var(--color-negative);
+			color: var(--color-text-primary);
+			font-size: 1.2em;
 		}
 
 		/* Themes Section */
@@ -330,18 +325,36 @@ export default {
 			margin-bottom: var(--space-xl);
 		}
 
+		.themes-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: var(--space-lg);
+		}
+
 		.theme-card {
-			border-bottom: 1px solid var(--color-border-light);
-			padding: var(--space-lg) 0;
+			background: var(--color-surface);
+			border: 1px solid var(--color-border);
+			border-radius: var(--radius-md);
+			padding: var(--space-lg);
+			border-left: 4px solid var(--color-neutral);
+			box-shadow: var(--shadow-sm);
+			transition: box-shadow 0.15s ease;
 		}
 
-		.theme-card:first-child {
-			padding-top: 0;
+		.theme-card:hover {
+			box-shadow: var(--shadow-md);
 		}
 
-		.theme-card:last-child {
-			border-bottom: none;
-			padding-bottom: 0;
+		.theme-card.sentiment-positive {
+			border-left-color: var(--color-positive);
+		}
+
+		.theme-card.sentiment-negative {
+			border-left-color: var(--color-negative);
+		}
+
+		.theme-card.sentiment-mixed {
+			border-left-color: var(--color-mixed);
 		}
 
 		.theme-header {
@@ -352,35 +365,36 @@ export default {
 		}
 
 		.theme-name {
-			font-size: 1rem;
-			font-weight: 600;
+			font-size: 1.0625rem;
+			font-weight: 700;
 			color: var(--color-text-primary);
 		}
 
 		.sentiment-badge {
-			font-size: 0.75rem;
-			font-weight: 500;
+			font-size: 0.6875rem;
+			font-weight: 600;
 			padding: var(--space-xs) var(--space-sm);
 			border-radius: var(--radius-sm);
-			text-transform: capitalize;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
 		}
 
-		.sentiment-positive {
+		.sentiment-badge.positive {
 			background: var(--color-positive-bg);
 			color: var(--color-positive);
 		}
 
-		.sentiment-negative {
+		.sentiment-badge.negative {
 			background: var(--color-negative-bg);
 			color: var(--color-negative);
 		}
 
-		.sentiment-mixed {
+		.sentiment-badge.mixed {
 			background: var(--color-mixed-bg);
 			color: var(--color-mixed);
 		}
 
-		.sentiment-neutral, .sentiment-unknown {
+		.sentiment-badge.neutral, .sentiment-badge.unknown {
 			background: var(--color-neutral-bg);
 			color: var(--color-neutral);
 		}
@@ -391,15 +405,16 @@ export default {
 
 		.theme-bullets li {
 			position: relative;
-			padding: var(--space-xs) 0 var(--space-xs) var(--space-lg);
+			padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
 			color: var(--color-text-secondary);
 			font-size: 0.875rem;
+			line-height: 1.5;
 		}
 
 		.theme-bullets li::before {
-			content: '\\2022';
+			content: '\\2014';
 			position: absolute;
-			left: var(--space-sm);
+			left: 0;
 			color: var(--color-text-muted);
 		}
 
@@ -461,7 +476,6 @@ export default {
 		<div class="header-inner">
 			<div class="header-left">
 				<span class="logo">Feedback Dashboard</span>
-				<span class="ai-badge">AI-generated summaries</span>
 			</div>
 			<div class="header-right">
 				<div class="time-selector" id="timeSelector">
@@ -561,7 +575,7 @@ export default {
 		<div id="noSummaryState" class="empty-state hidden">
 			<div class="empty-state-icon">📊</div>
 			<h3>No Summary Generated Yet</h3>
-			<p>Click the Refresh button to generate an AI-powered summary of your product feedback.</p>
+			<p>Select a time window above to generate a summary of your product feedback.</p>
 		</div>
 	</main>
 
@@ -626,31 +640,6 @@ export default {
 		 * Infer priority from action item text
 		 * Looks for urgency keywords to determine priority level
 		 */
-		function inferPriority(text) {
-			const lowerText = text.toLowerCase();
-
-			// High priority keywords
-			const highKeywords = ['immediately', 'urgent', 'critical', 'broken', 'can\\'t', 'cannot',
-				'timeout', 'crash', 'error', 'fail', 'block', 'severe', 'asap', 'now'];
-			for (const keyword of highKeywords) {
-				if (lowerText.includes(keyword)) {
-					return { label: 'High urgency', class: 'priority-high' };
-				}
-			}
-
-			// Medium priority keywords
-			const mediumKeywords = ['should', 'soon', 'important', 'need', 'improve', 'fix',
-				'issue', 'problem', 'concern'];
-			for (const keyword of mediumKeywords) {
-				if (lowerText.includes(keyword)) {
-					return { label: 'Medium priority', class: 'priority-medium' };
-				}
-			}
-
-			// Default to action needed
-			return { label: 'Action needed', class: 'priority-action' };
-		}
-
 		/**
 		 * Show/hide UI states
 		 */
@@ -745,7 +734,7 @@ export default {
 		}
 
 		/**
-		 * Render action items as to-dos with priority badges
+		 * Render action items as numbered to-dos (1 = most important)
 		 */
 		function renderTodos(items) {
 			const container = document.getElementById('todosList');
@@ -758,13 +747,14 @@ export default {
 			}
 
 			emptyState.classList.add('hidden');
-			container.innerHTML = items.map(item => {
-				const priority = inferPriority(item);
-				return '<div class="todo-item">' +
-					'<span class="priority-badge ' + priority.class + '">' + priority.label + '</span>' +
-					'<span class="todo-text">' + escapeHtml(item) + '</span>' +
-				'</div>';
-			}).join('');
+			container.innerHTML = '<div class="todo-list">' +
+				items.map((item, index) => {
+					return '<div class="todo-item">' +
+						'<span class="todo-number">' + (index + 1) + '</span>' +
+						'<span class="todo-text">' + escapeHtml(item) + '</span>' +
+					'</div>';
+				}).join('') +
+			'</div>';
 		}
 
 		/**
@@ -800,15 +790,15 @@ export default {
 			}
 
 			emptyState.classList.add('hidden');
-			container.innerHTML = themes.map(theme => {
-				const sentimentClass = 'sentiment-' + (theme.sentiment || 'neutral');
+			const themeCards = themes.map(theme => {
+				const sentiment = theme.sentiment || 'neutral';
 				const bullets = theme.bullets || [];
 
-				return '<div class="theme-card">' +
+				return '<div class="theme-card sentiment-' + sentiment + '">' +
 					'<div class="theme-header">' +
 						'<span class="theme-name">' + escapeHtml(theme.name || 'Unknown Theme') + '</span>' +
-						'<span class="sentiment-badge ' + sentimentClass + '">' +
-							escapeHtml(theme.sentiment || 'neutral') +
+						'<span class="sentiment-badge ' + sentiment + '">' +
+							escapeHtml(sentiment) +
 						'</span>' +
 					'</div>' +
 					(bullets.length > 0
@@ -819,6 +809,8 @@ export default {
 					) +
 				'</div>';
 			}).join('');
+
+			container.innerHTML = '<div class="themes-grid">' + themeCards + '</div>';
 		}
 
 		/**
