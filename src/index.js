@@ -173,18 +173,18 @@ export default {
 		.main {
 			max-width: 1280px;
 			margin: 0 auto;
-			padding: var(--space-xl);
+			padding: var(--space-lg);
 		}
 
 		/* Overview Section */
 		.overview {
-			margin-bottom: var(--space-2xl);
+			margin-bottom: var(--space-lg);
 		}
 
 		.overview h1 {
-			font-size: 2.25rem;
-			font-weight: 800;
-			margin-bottom: var(--space-md);
+			font-size: 1.75rem;
+			font-weight: 700;
+			margin-bottom: var(--space-sm);
 			color: var(--color-text-primary);
 		}
 
@@ -216,81 +216,72 @@ export default {
 		}
 
 		.card-header {
-			padding: var(--space-lg) var(--space-lg);
-			border-bottom: 1px solid var(--color-border);
+			padding: var(--space-md) var(--space-lg);
+			border-bottom: 1px solid var(--color-border-light);
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			background: var(--color-bg);
 		}
 
 		.card-title {
-			font-size: 1.125rem;
+			font-size: 1rem;
 			font-weight: 700;
 			color: var(--color-text-primary);
 			text-transform: uppercase;
-			letter-spacing: 0.025em;
+			letter-spacing: 0.04em;
 		}
 
 		.card-body {
-			padding: var(--space-lg);
+			padding: var(--space-md) var(--space-lg);
 		}
 
 		/* Critical To-Dos */
 		.todos-section {
-			margin-bottom: var(--space-xl);
+			margin-bottom: var(--space-lg);
+		}
+
+		.todos-section .card {
+			border-left: 3px solid var(--color-accent);
 		}
 
 		.todo-list {
 			list-style: none;
-			counter-reset: todo-counter;
 		}
 
 		.todo-item {
 			display: flex;
 			align-items: flex-start;
 			gap: var(--space-md);
-			padding: var(--space-md) 0;
-			border-bottom: 1px solid var(--color-border-light);
-			counter-increment: todo-counter;
+			padding: var(--space-md) var(--space-sm);
+			border-radius: var(--radius-sm);
+			transition: background 0.15s ease;
 		}
 
-		.todo-item:last-child {
-			border-bottom: none;
-			padding-bottom: 0;
-		}
-
-		.todo-item:first-child {
-			padding-top: 0;
+		.todo-item:hover {
+			background: var(--color-bg);
 		}
 
 		.todo-number {
 			flex-shrink: 0;
-			width: 28px;
-			height: 28px;
-			background: var(--color-accent);
-			color: white;
-			border-radius: 50%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
 			font-size: 0.875rem;
 			font-weight: 700;
+			color: var(--color-text-primary);
+			font-family: var(--font-mono);
+			min-width: 20px;
 		}
 
 		.todo-text {
 			color: var(--color-text-primary);
-			font-size: 1rem;
-			line-height: 1.6;
-			padding-top: 2px;
+			font-size: 0.9375rem;
+			line-height: 1.5;
 		}
 
 		/* Insights Section - Two Column */
 		.insights-grid {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			gap: var(--space-lg);
-			margin-bottom: var(--space-xl);
+			gap: var(--space-md);
+			margin-bottom: var(--space-lg);
 		}
 
 		@media (max-width: 768px) {
@@ -299,36 +290,46 @@ export default {
 			}
 		}
 
+		.insights-grid .card.positive {
+			border-left: 3px solid var(--color-positive);
+		}
+
+		.insights-grid .card.negative {
+			border-left: 3px solid var(--color-negative);
+		}
+
 		.insight-list {
 			list-style: none;
 		}
 
 		.insight-list li {
 			position: relative;
-			padding: var(--space-sm) 0 var(--space-sm) var(--space-lg);
+			padding: var(--space-sm) var(--space-sm);
 			color: var(--color-text-primary);
 			font-size: 0.9375rem;
+			border-radius: var(--radius-sm);
+			transition: background 0.15s ease;
+		}
+
+		.insight-list li:hover {
+			background: var(--color-bg);
 		}
 
 		.insight-list li::before {
-			content: '\\2022';
-			position: absolute;
-			left: 0;
-			top: 50%;
-			transform: translateY(-50%);
-			color: var(--color-text-primary);
-			font-size: 1.2em;
+			content: '\\2014';
+			margin-right: var(--space-sm);
+			color: var(--color-text-muted);
 		}
 
 		/* Themes Section */
 		.themes-section {
-			margin-bottom: var(--space-xl);
+			margin-bottom: var(--space-lg);
 		}
 
 		.themes-grid {
 			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-			gap: var(--space-lg);
+			grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+			gap: var(--space-md);
 		}
 
 		.theme-card {
@@ -531,23 +532,23 @@ export default {
 
 			<!-- Key Insights (two columns) -->
 			<section class="insights-grid">
-				<div class="card">
+				<div class="card positive">
 					<div class="card-header">
 						<span class="card-title">What's Going Well</span>
 					</div>
 					<div class="card-body">
-						<ul id="goingWellList" class="insight-list positive"></ul>
+						<ul id="goingWellList" class="insight-list"></ul>
 						<div id="goingWellEmpty" class="empty-state hidden">
 							<p>No positive highlights available.</p>
 						</div>
 					</div>
 				</div>
-				<div class="card">
+				<div class="card negative">
 					<div class="card-header">
 						<span class="card-title">What Needs Attention</span>
 					</div>
 					<div class="card-body">
-						<ul id="needsAttentionList" class="insight-list attention"></ul>
+						<ul id="needsAttentionList" class="insight-list"></ul>
 						<div id="needsAttentionEmpty" class="empty-state hidden">
 							<p>No issues identified.</p>
 						</div>
@@ -746,11 +747,15 @@ export default {
 				return;
 			}
 
+			// Cap at 5 items max
+			const limitedItems = items.slice(0, 5);
+
 			emptyState.classList.add('hidden');
 			container.innerHTML = '<div class="todo-list">' +
-				items.map((item, index) => {
+				limitedItems.map((item, index) => {
+					const num = String(index + 1).padStart(2, '0');
 					return '<div class="todo-item">' +
-						'<span class="todo-number">' + (index + 1) + '</span>' +
+						'<span class="todo-number">' + num + '</span>' +
 						'<span class="todo-text">' + escapeHtml(item) + '</span>' +
 					'</div>';
 				}).join('') +
@@ -830,9 +835,10 @@ export default {
 		/**
 		 * Handle time window change - regenerates summary for selected window
 		 */
-		async function handleWindowChange(window) {
+		async function handleWindowChange(window, forceRefresh = false) {
 			if (isLoading) return;
 
+			const isSameWindow = (window === currentWindow);
 			currentWindow = window;
 
 			// Update pill states
@@ -845,11 +851,21 @@ export default {
 			showState('loading');
 
 			try {
-				// Regenerate summary for this window
-				const data = await regenerateSummary(window);
+				let data;
+				if (isSameWindow || forceRefresh) {
+					// Clicking same tab = regenerate fresh summary
+					data = await regenerateSummary(window);
+				} else {
+					// Clicking different tab = load cached summary (fast)
+					data = await fetchSummary(window);
+					if (!data.summary) {
+						// No cached summary, generate one
+						data = await regenerateSummary(window);
+					}
+				}
 				renderDashboard(data);
 			} catch (err) {
-				showError('Failed to generate summary: ' + err.message);
+				showError('Failed to load summary: ' + err.message);
 			} finally {
 				isLoading = false;
 				timeSelector.classList.remove('loading');
@@ -867,10 +883,15 @@ export default {
 			showState('loading');
 
 			try {
-				const data = await regenerateSummary(currentWindow);
+				// Try cached summary first for fast initial load
+				let data = await fetchSummary(currentWindow);
+				if (!data.summary) {
+					// No cached summary, generate one
+					data = await regenerateSummary(currentWindow);
+				}
 				renderDashboard(data);
 			} catch (err) {
-				showError('Failed to generate summary: ' + err.message);
+				showError('Failed to load summary: ' + err.message);
 			} finally {
 				isLoading = false;
 				timeSelector.classList.remove('loading');
@@ -991,8 +1012,21 @@ export default {
 			).bind(since).all();
 
 			if (feedbackItems.length === 0) {
-				return new Response(JSON.stringify({ error: 'No feedback found for this window' }), {
-					status: 404,
+				// Return empty summary instead of error when no feedback exists
+				const emptySummary = {
+					summary: 'No feedback received in this time window.',
+					sentiment: 'neutral',
+					whatsGoingWell: [],
+					needsAttention: [],
+					actionItems: [],
+					themes: [],
+				};
+				return new Response(JSON.stringify({
+					window,
+					generated_at: Date.now(),
+					feedback_count: 0,
+					summary: emptySummary,
+				}), {
 					headers: { 'Content-Type': 'application/json' },
 				});
 			}
@@ -1013,7 +1047,7 @@ Provide a structured JSON response with these exact fields:
 
 4. "needsAttention": Array of 2-4 short bullet points highlighting issues, complaints, or areas needing improvement.
 
-5. "actionItems": Array of 2-4 prioritized action items. Each item should be a short actionable sentence. Include urgency keywords like "immediately", "soon", "should", "consider" to indicate priority.
+5. "actionItems": Array of 3-5 prioritized action items (maximum 5). Each item should be a short actionable sentence. Order from most to least important.
 
 6. "themes": Array of 3-5 theme objects, each with:
    - "name": Theme name (e.g., "Performance", "Onboarding", "Documentation")
